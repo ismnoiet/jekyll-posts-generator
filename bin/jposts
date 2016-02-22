@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+var path    = require('path'),
+    program = require('commander'),
+	  utilities = require('../others/utilities'),
+    VERSION = require('../package.json').version;
+
+var defaultHeader = {'layout':'post', 'title':'', 'tags':'','categories':''};
+
+// convert a regular object to a jekyll post header 
+var awesome = utilities.fromObjToHeader(defaultHeader);
+
+// console.log(utilities.getCurrentDate());
+
+program
+  .version(VERSION)
+  // .option('-c, --category', 'Select the category of the post')  
+  // .option('-l, --layout', "If set, this specifies the layout file to use. Use the layout file name without the file extension. Layout files must be placed in the  '_layouts' directory.")
+  // .option('-d, --date', 'Get current Date(format dd/mm/yyyy)')  
+  // .option('-t, --tags', 'Set the current article tags')	
+
+program
+    .command("create <postTitle>")
+    .description("Create a post")
+    .action(function(postTitle) {
+        var originalPostTitle = postTitle.trim().replace(/[\s]{2,}/,'').replace(' ','-');
+        var finalPostTitle = utilities.getCurrentDate().join('-') + '-' + originalPostTitle + '.md';
+        var filename = '.' + path.sep + '_posts' + path.sep + finalPostTitle;
+      	// TODO
+      	// check if the title is not empty 
+        if(postTitle){
+        	
+          // check if the article doesn't exist already          
+          if(utilities.fileExists(filename) ){
+            console.log('file does  exists ');  
+          }else{
+            defaultHeader.title = postTitle;
+            // console.log('file does not exist');
+            utilities.write(filename,utilities.fromObjToHeader(defaultHeader));
+          }
+          
+        } 
+           	
+      	console.log(postTitle);	
+      	console.log(originalPostTitle);	
+      	console.log(finalPostTitle);	
+    });
+    
+
+program.parse(process.argv);
+
+if(!program.args.length) {
+    program.help();
+} else {
+  // ... awesome stuff here    	
+}
