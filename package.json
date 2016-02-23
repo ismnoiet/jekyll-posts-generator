@@ -1,20 +1,21 @@
 {
   "name": "jekyll-posts-generator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate jekyll posts from the terminal",
   "bin": {
     "jposts": "./bin/jposts"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish":"standard-format -w bin/jposts others/utilities.js"
   },
   "repository": {
-      "type": "git",
-      "url": "git://github.com/ismnoiet/jekyll-posts-generator.git"
-    },
-    "bugs": {
-      "url": "http://github.com/ismnoiet/jekyll-posts-generator/issues"
-    },
+    "type": "git",
+    "url": "git://github.com/ismnoiet/jekyll-posts-generator.git"
+  },
+  "bugs": {
+    "url": "http://github.com/ismnoiet/jekyll-posts-generator/issues"
+  },
   "keywords": [
     "jekyll",
     "post",
@@ -23,10 +24,11 @@
   "author": "ismnoiet <ismnoiet@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "json2yaml": "^1.0.3"
   },
+  "preferGlobal": true,
   "devDependencies": {
-    "jscs": "^2.10.1",
-    "jshint": "^2.9.1"
+    "standard-format": "^2.1.0"
   }
 }

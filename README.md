@@ -6,9 +6,13 @@ type in your terminal :
 ```
 npm install -g jekyll-posts-generator
 ```
+In some computers you need to be an **administrator** to install this module, in that case 
+just precede the previous command with ``sudo``.
+
+After installing this package you can access the global command ``jposts`` from within any folder you want.
 
 #### Usage
-Navigate to some jekyll website that have the following structure :
+Navigate to some [jekyll website](http://jekyllrb.com/) folder that have the following structure :
 ```
 .
 ├── _config.yml
@@ -33,10 +37,26 @@ OR
  jposts create "my article title"
 ```
 
-At this time you go inside ``_posts`` folder, you will see a new file ``[YYYY-MM-DD]-my-article-title.md`` generated for you.
+At this time if you go inside ``_posts`` folder, you will see a new file ``[YYYY-MM-DD]-my-article-title.md`` generated for you.
+#### Options
+You can see the list of options available with any command using
+``jposts [COMMAND_NAME] -h`` or ``jposts -h `` to list the options available with the global command ``jposts``,
+Here is some examples :
+```
+#list options available with create command
+jposts create -h
 
+# specify the current post categories
+jposts create <postName> -c category1,category2,...
+
+# Specify the layout of the current post
+jposts create <postName> -l post
+
+# You can specify multiple options at the same time :
+jposts create <postName> -l post -c category1,category2
+```
 #### TODO
 * Add other essential options.
-* Add jshint and other stuff for linting and testing purpposes.
+* auto-formater (added standard-format).
+* Add test cases.
 * ...
-
