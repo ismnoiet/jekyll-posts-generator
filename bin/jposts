@@ -19,7 +19,7 @@ program
   .action(function (postTitle, options) {
     'use strict'
 
-    var originalPostTitle = postTitle.trim().replace(/[\s]{2,}/, '').replace(' ', '-')
+    var originalPostTitle = postTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
     var finalPostTitle = utilities.getCurrentDate().join('-') + '-' + originalPostTitle + '.md'
     var filename = '.' + path.sep + '_posts' + path.sep + finalPostTitle
     // check if the title is not empty 
