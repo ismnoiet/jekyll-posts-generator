@@ -57,6 +57,5 @@ jposts create <postName> -l post -c category1,category2
 ```
 #### TODO
 * Add other essential options.
-* auto-formater (added standard-format).
 * Add test cases.
 * ...
