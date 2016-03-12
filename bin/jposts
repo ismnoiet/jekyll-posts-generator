@@ -12,7 +12,7 @@ program
   // .option('-t, --tags', 'Set the current article tags')  
 
 program
-  .command('create <postTitle>')
+  .command('create-post <postTitle>')
   .description('Create a post')
   .option('-c, --categories <items>', 'Specify the categor(y/ies) for the current article \n                          example: jposts create <postName> -c category1,category2,...')
   .option('-l, --layout <name>', "If set, this specifies the layout file to use. Use the layout file\n                          name without the file extension. Layout files must be placed \n                          in the  '_layouts' directory.")
@@ -26,11 +26,11 @@ program
     if (postTitle) {
       // check if the article doesn't exist already          
       if (utilities.fileExists(filename)) {
-        console.log('file does  exists ')
+        console.log('file already exists ')
       } else {
         defaultHeader.title = postTitle
         // console.log('file does not exist')
-
+         
         if (options.categories) {
           defaultHeader.categories = options.categories.split(',')
         }
@@ -48,6 +48,4 @@ program.parse(process.argv)
 
 if (!program.args.length) {
   program.help()
-} else {
-  // ... awesome stuff here 
 }

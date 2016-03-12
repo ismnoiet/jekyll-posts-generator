@@ -1,6 +1,6 @@
 {
   "name": "jekyll-posts-generator",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Generate jekyll posts from the terminal",
   "bin": {
     "jposts": "./bin/jposts"
