@@ -30,11 +30,11 @@ Navigate to some [jekyll website](http://jekyllrb.com/) folder that have the fol
 Now you can create a basic article using the ``create command``
 
 ```
-jposts create 'my article title'
+jposts create-post 'my article title'
 ```
 OR
 ```
- jposts create "my article title"
+ jposts create-post "my article title"
 ```
 
 At this time if you go inside ``_posts`` folder, you will see a new file ``[YYYY-MM-DD]-my-article-title.md`` generated for you.
@@ -44,17 +44,24 @@ You can see the list of options available with any command using
 Here is some examples :
 ```
 #list options available with create command
-jposts create -h
+jposts create-post -h
 
 # specify the current post categories
-jposts create <postName> -c category1,category2,...
+jposts create-post <postName> -c category1,category2,...
 
 # Specify the layout of the current post
-jposts create <postName> -l post
+jposts create-post <postName> -l post
 
 # You can specify multiple options at the same time :
-jposts create <postName> -l post -c category1,category2
+jposts create-post <postName> -l post -c category1,category2
+
+# Create new category 
+jposts create-category <categoryName> 
 ```
+
+
+
+
 #### TODO
 * Add other essential options.
 * Add test cases.
