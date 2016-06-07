@@ -6,7 +6,7 @@
     "jposts": "./bin/jposts"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/",
     "prepublish":"standard-format -w bin/jposts others/utilities.js"
   },
   "repository": {
