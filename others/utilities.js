@@ -49,22 +49,23 @@ function fileExists (filename) {
   }
 }
 
-function appendToFile(filename,content){
-  fs.appendFileSync(filename,content);
+function appendToFile (filename, content) {
+  fs.appendFileSync(filename, content)
 }
 
-function toCamelCase(str){
-  return str.split(' ').map(function(word){
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
+function toCamelCase (str) {
+  if (typeof str !== 'string' || !str) {return ''; }
+  return str.split(' ').map(function (word) {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+  }).join(' ')
 }
 
 module.exports = {
-  appendToFile:appendToFile,
+  appendToFile: appendToFile,
   getCurrentDate: getCurrentDate,
   toFrontMatterBlock: toFrontMatterBlock,
   fileExists: fileExists,
   write: write,
   toYaml: toYaml,
-  toCamelCase:toCamelCase
+  toCamelCase: toCamelCase
 }
