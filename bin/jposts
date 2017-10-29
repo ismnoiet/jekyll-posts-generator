@@ -8,13 +8,14 @@ var defaultHeader = {layout: 'post',title: '',tags: '',categories: ''}
 
 program
   .version(VERSION)
-  // .option('-d, --date', 'Get current Date(format dd/mm/yyyy)')  
-  // .option('-t, --tags', 'Set the current article tags')  
+  // .option('-d, --date', 'Get current Date(format dd/mm/yyyy)')
+  // .option('-t, --tags', 'Set the current article tags')
 
 program
   .command('create-post <postTitle>')
   .description('Create a post')
   .option('-c, --categories <items>', 'Specify the categor(y/ies) for the current article \n                          example: jposts create <postName> -c category1,category2,...')
+  .option('-t, --tags <items>', 'Specify the categor(y/ies) for the current article \n                          example: jposts create <postName> -t tag1,tag2,...')
   .option('-l, --layout <name>', "If set, this specifies the layout file to use. Use the layout file\n                          name without the file extension. Layout files must be placed \n                          in the  '_layouts' directory.")
   .action(function (postTitle, options) {
     'use strict'
@@ -22,17 +23,20 @@ program
     var originalPostTitle = postTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
     var finalPostTitle = utilities.getCurrentDate().join('-') + '-' + originalPostTitle + '.md'
     var filename = '.' + path.sep + '_posts' + path.sep + finalPostTitle
-    // check if the title is not empty 
+    // check if the title is not empty
     if (postTitle) {
-      // check if the article doesn't exist already          
+      // check if the article doesn't exist already
       if (utilities.fileExists(filename)) {
         console.log('file already exists ')
       } else {
         defaultHeader.title = postTitle
         // console.log('file does not exist')
-         
+
         if (options.categories) {
           defaultHeader.categories = options.categories.split(',')
+        }
+        if (options.tags) {
+          defaultHeader.tags = options.tags.split(',')
         }
         if (options.layout) {
           defaultHeader.layout = options.layout
@@ -45,13 +49,33 @@ program
   })
 
 program
+  .command('create-tag <tagTitle>')
+  .description('Create a tag')
+  .action(function (tagTitle, options) {
+    var originalTagTitle = TagTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
+    // 1) create ...
+    var finalTagTitle = originalTagTitle + '.html'
+    var filename = '.' + path.sep + 'tags' + path.sep + finalTagTitle
+    var tagHeader = {layout:'tag',tag:originalTagTitle,permalink:'/tag/'+originalTagTitle}
+    utilities.write(filename,utilities.toFrontMatterBlock(JSON.stringify(tagHeader)));
+
+    if(categoryTitle){
+      // 2) append an entry inside _data/categories.yml
+      var content = "\n\n- slug: "+originalCategoryTitle+"\n  name: "+utilities.toCamelCase(categoryTitle);
+      utilities.appendToFile('_data/tags.yml',content);
+      console.log(utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)));
+      console.log(content);
+    }
+  })
+
+program
   .command('create-category <categoryTitle>')
-  .description('Create a category')  
+  .description('Create a category')
   .action(function (categoryTitle, options) {
     var originalCategoryTitle = categoryTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
-    // 1) create categories/category-name.html 
+    // 1) create categories/category-name.html
     var finalCategoryTitle = originalCategoryTitle + '.html'
-    var filename = '.' + path.sep + 'categories' + path.sep + finalCategoryTitle 
+    var filename = '.' + path.sep + 'categories' + path.sep + finalCategoryTitle
     var categoryHeader = {layout:'category',category:originalCategoryTitle,permalink:'/categories/'+originalCategoryTitle}
     utilities.write(filename,utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)));
 
@@ -61,7 +85,7 @@ program
       utilities.appendToFile('_data/categories.yml',content);
       console.log(utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)));
       console.log(content);
-    }     
+    }
   });
 
 program.parse(process.argv)
