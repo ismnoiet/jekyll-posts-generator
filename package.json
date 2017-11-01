@@ -7,7 +7,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish":"standard-format -w bin/jposts others/utilities.js"
+    "lint": "standard-format -w bin/jposts others/utilities.js",
+    "prepublish": "npm run lint",
+    "precommit": "npm run lint && git add bin/jposts others/utilities.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
   },
   "preferGlobal": true,
   "devDependencies": {
+    "husky": "^0.14.3",
     "standard-format": "^2.1.0"
   }
 }

@@ -30,7 +30,7 @@ program
       } else {
         defaultHeader.title = postTitle
         // console.log('file does not exist')
-         
+
         if (options.categories) {
           defaultHeader.categories = options.categories.split(',')
         }
@@ -40,29 +40,28 @@ program
 
         utilities.write(filename, utilities.toFrontMatterBlock(JSON.stringify(defaultHeader)))
       }
-
     }
   })
 
 program
   .command('create-category <categoryTitle>')
-  .description('Create a category')  
+  .description('Create a category')
   .action(function (categoryTitle, options) {
     var originalCategoryTitle = categoryTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
     // 1) create categories/category-name.html 
     var finalCategoryTitle = originalCategoryTitle + '.html'
-    var filename = '.' + path.sep + 'categories' + path.sep + finalCategoryTitle 
-    var categoryHeader = {layout:'category',category:originalCategoryTitle,permalink:'/categories/'+originalCategoryTitle}
-    utilities.write(filename,utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)));
+    var filename = '.' + path.sep + 'categories' + path.sep + finalCategoryTitle
+    var categoryHeader = {layout: 'category',category: originalCategoryTitle,permalink: '/categories/' + originalCategoryTitle}
+    utilities.write(filename, utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)))
 
-    if(categoryTitle){
+    if (categoryTitle) {
       // 2) append an entry inside _data/categories.yml
-      var content = "\n\n- slug: "+originalCategoryTitle+"\n  name: "+utilities.toCamelCase(categoryTitle);
-      utilities.appendToFile('_data/categories.yml',content);
-      console.log(utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)));
-      console.log(content);
-    }     
-  });
+      var content = '\n\n- slug: ' + originalCategoryTitle + '\n  name: ' + utilities.toCamelCase(categoryTitle)
+      utilities.appendToFile('_data/categories.yml', content)
+      console.log(utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)))
+      console.log(content)
+    }
+  })
 
 program.parse(process.argv)
 
