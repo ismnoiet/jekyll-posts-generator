@@ -8,8 +8,8 @@ var defaultHeader = {layout: 'post',title: '',tags: '',categories: ''}
 
 program
   .version(VERSION)
-  // .option('-d, --date', 'Get current Date(format dd/mm/yyyy)')  
-  // .option('-t, --tags', 'Set the current article tags')  
+  // .option('-d, --date', 'Get current Date(format dd/mm/yyyy)')
+  // .option('-t, --tags', 'Set the current article tags')
 
 program
   .command('create-post <postTitle>')
@@ -21,10 +21,10 @@ program
 
     var originalPostTitle = postTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
     var finalPostTitle = utilities.getCurrentDate().join('-') + '-' + originalPostTitle + '.md'
-    var filename = '.' + path.sep + '_posts' + path.sep + finalPostTitle
-    // check if the title is not empty 
+    var filename = path.join('.', '_posts', finalPostTitle)
+    // check if the title is not empty
     if (postTitle) {
-      // check if the article doesn't exist already          
+      // check if the article doesn't exist already
       if (utilities.fileExists(filename)) {
         console.log('file already exists ')
       } else {
@@ -48,9 +48,9 @@ program
   .description('Create a category')
   .action(function (categoryTitle, options) {
     var originalCategoryTitle = categoryTitle.trim().replace(/[\s]{2,}/, '').replace(/[ ]/g, '-')
-    // 1) create categories/category-name.html 
+    // 1) create categories/category-name.html
     var finalCategoryTitle = originalCategoryTitle + '.html'
-    var filename = '.' + path.sep + 'categories' + path.sep + finalCategoryTitle
+    var filename = path.join('.', 'categories', finalCategoryTitle)
     var categoryHeader = {layout: 'category',category: originalCategoryTitle,permalink: '/categories/' + originalCategoryTitle}
     utilities.write(filename, utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)))
 
