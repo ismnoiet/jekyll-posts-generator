@@ -32,7 +32,7 @@ program
         // console.log('file does not exist')
 
         if (options.categories) {
-          defaultHeader.categories = options.categories.split(',')
+          defaultHeader.categories = options.categories.replace(/[\s]{1,}/g, '').split(',')
         }
         if (options.layout) {
           defaultHeader.layout = options.layout
