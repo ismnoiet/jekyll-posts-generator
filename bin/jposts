@@ -15,7 +15,7 @@ program
   .command('create-post <postTitle>')
   .description('Create a post')
   .option('-c, --categories <items>', 'Specify the categor(y/ies) for the current article \n                          example: jposts create <postName> -c category1,category2,...')
-  .option('-t, --tags <items>', 'Specify the categor(y/ies) for the current article \n                          example: jposts create <postName> -t tag1,tag2,...')
+  .option('-t, --tags <items>', 'Specify the tag(s) for the current article \n                          example: jposts create <postName> -t tag1,tag2,...')
   .option('-l, --layout <name>', "If set, this specifies the layout file to use. Use the layout file\n                          name without the file extension. Layout files must be placed \n                          in the  '_layouts' directory.")
   .action(function (postTitle, options) {
     'use strict'
@@ -36,7 +36,7 @@ program
           defaultHeader.categories = options.categories.split(',')
         }
         if (options.tags) {
-          defaultHeader.tags = options.tags.split(',')
+          defaultHeader.tags = options.tags.replace(/[\s]{1,}/g, '').split(',')
         }
         if (options.layout) {
           defaultHeader.layout = options.layout
@@ -59,11 +59,11 @@ program
     var tagHeader = {layout:'tag',tag:originalTagTitle,permalink:'/tag/'+originalTagTitle}
     utilities.write(filename,utilities.toFrontMatterBlock(JSON.stringify(tagHeader)));
 
-    if(categoryTitle){
-      // 2) append an entry inside _data/categories.yml
-      var content = "\n\n- slug: "+originalCategoryTitle+"\n  name: "+utilities.toCamelCase(categoryTitle);
+    if(tagTitle){
+      // 2) append an entry inside _data/tags.yml
+      var content = "\n\n- slug: "+originalTagTitle+"\n  name: "+utilities.toCamelCase(tagTitle);
       utilities.appendToFile('_data/tags.yml',content);
-      console.log(utilities.toFrontMatterBlock(JSON.stringify(categoryHeader)));
+      console.log(utilities.toFrontMatterBlock(JSON.stringify(tagHeader)));
       console.log(content);
     }
   })
