@@ -1,3 +1,5 @@
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 ### simple jekyll posts generator
 As you can guess from the title, this is a node module to generate [jekyll posts](http://jekyllrb.com/)  easily from within your terminal.
 
